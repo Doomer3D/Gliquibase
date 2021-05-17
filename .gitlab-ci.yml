@@ -1,0 +1,30 @@
+variables:
+    LIQUIBASE_VERSION: "4.3.4"
+
+stages:
+    - deploy
+
+deploy-dev:
+    stage: deploy
+    tags:
+        - liquibase
+        - dev
+    script:
+        - 'bash ./ci/deploy-db.sh $DEV_DB $DEV_DB_USER $DEV_DB_PASS'
+    environment:
+        name: dev
+    only:
+        - dev
+
+deploy-prod:
+    stage: deploy
+    tags:
+        - liquibase
+        - prod
+    script:
+        - 'bash ./ci/deploy-db.sh $DEV_DB $DEV_DB_USER $DEV_DB_PASS'
+    environment:
+        name: prod
+    when: manual
+    only:
+        - prod

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.2.xsd ">
+
+  <changeSet author="Doomer" id="20210501-01">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="TEST" />
+      </not>
+    </preConditions>
+    <createTable tableName="TEST" remarks="Тестовый справочник">
+      <column name="ID" type="NUMBER(28,0)" remarks="Идентификатор">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="TEST_PK" />
+      </column>
+      <column name="CODE" type="VARCHAR2(64)" remarks="Код">
+        <constraints nullable="false" />
+      </column>
+      <column name="NAME" type="VARCHAR2(256)" remarks="Наименование">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+    <rollback>
+      <dropTable tableName="TEST" />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>
